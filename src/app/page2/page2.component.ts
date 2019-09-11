@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-page2',
@@ -10,16 +11,17 @@ export class Page2Component implements OnInit {
 
   plan: number;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute) {
   }
 
   ipForm: FormGroup;
 
   ngOnInit() {
-    this.plan = 5;
+    this.plan = Number(this.activatedRoute.snapshot.paramMap.get('plan'));
     this.ipForm = this.fb.group({
       address: this.fb.array([this.fb.group({
-        ip: ['', Validators.pattern('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]})
+        ip: ['', Validators.pattern('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]
+      })
       ])
     });
   }
@@ -32,7 +34,8 @@ export class Page2Component implements OnInit {
   addIP() {
     if (this.ipArray.length != this.plan) {
       this.ipArray.push(this.fb.group({
-        ip: ['', Validators.pattern('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]}));
+        ip: ['', Validators.pattern('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]
+      }));
     }
   }
 
@@ -50,26 +53,45 @@ export class Page2Component implements OnInit {
 
   submit() {
     if (this.ipForm.valid) {
-      const validIPs = this.ipForm.value.address;
-      validIPs.forEach((obj, index) => {
-        if (obj.ip == null || obj.ip == '') {
-          console.log(this.ipArray.length);
-          // if (this.ipArray.length === 1) {
-          //   console.log('reset');
-          //   this.ipForm.reset();
-          // } else {
-          //   console.log('remove');
-          //   this.ipArray.removeAt(index);
-          // }
+      const validIPs = this.ipForm.value.address.filter(function (obj) {
+        if (obj.ip != null && obj.ip != '') {
+          return obj;
         }
       });
-      console.log(validIPs);
-      // const validIPs = this.ipForm.value.address.filter(function (obj) {
-      //   if (obj.ip != null && obj.ip != '') {
-      //     return obj;
-      //   }
-      // });
-      localStorage.setItem('address', JSON.stringify(this.ipForm.value.address));
+      // console.log(validIPs);
+      // // const validIPs = this.ipForm.value.address;
+      // // this.ipForm.value.address.forEach((obj, index) => {
+      // //   if (obj.ip == null || obj.ip == '') {
+      // //     if (this.ipArray.length === 1) {
+      // //       // console.log(this.ipForm.value.address);
+      // //       this.ipForm.reset();
+      // //     } else {
+      // //       // console.log(this.ipForm.value.address);
+      // //       this.ipArray.removeAt(index);
+      // //     }
+      // //   }
+      // // });
+      this.removeBlank();
+      this.removeBlank();
+      this.removeBlank();
+      this.removeBlank();
+      this.removeBlank();
+      alert('data saved to local storage');
+      localStorage.setItem('address', JSON.stringify(validIPs));
     }
+  }
+
+  removeBlank() {
+    this.ipForm.value.address.forEach((obj, index) => {
+      if (obj.ip == null || obj.ip == '') {
+        if (this.ipArray.length === 1) {
+          // console.log(this.ipForm.value.address);
+          this.ipForm.reset();
+        } else {
+          // console.log(this.ipForm.value.address);
+          this.ipArray.removeAt(index);
+        }
+      }
+    });
   }
 }

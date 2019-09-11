@@ -1,3 +1,7 @@
-<p>
-  page1 works!
-</p>
+<form [formGroup]="form">
+  <select formControlName="plan">
+    <option *ngFor="let plan of plans" [ngValue]="plan.limit">{{plan.name}}</option>
+  </select>
+<!--  <p>Selected Country: {{plan?.name}}</p>-->
+  <button type="button" [disabled]="!form.valid" (click)="submit()" >Submit</button>
+</form>
