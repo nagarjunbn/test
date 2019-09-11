@@ -1,0 +1,14 @@
+<form [formGroup]="ipForm">
+  <div formArrayName="address">
+    <div *ngFor="let item of ipArray.controls; let ipIndex=index" [formGroupName]="ipIndex">
+      <label>
+        IP Address: <input formControlName="ip" />
+      </label>
+      <button type="button" (click)="deleteIP(ipIndex)">Delete</button><br>
+      <span *ngIf="getValidity(ipIndex)">Invalid IP</span>
+    </div>
+    <button type="button" (click)="addIP()" [disabled]="ipArray.length == plan">Add</button>
+  </div>
+  <button type="button" [disabled]="!ipForm.valid" (click)="submit()" >Submit</button>
+</form>
+{{ this.ipForm.value | json }}
