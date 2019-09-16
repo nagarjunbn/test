@@ -3,7 +3,7 @@
 #### Demo 
 I have never hosted the code in heroku so, I have added the code in github pages. Hope this is fine
 Demo URL : 
-https://nagarjunbn.github.io/test
+https://nagarjun-test1.herokuapp.com
 
 #### TODO
 CSS and UI can be improved to make it user friendly
