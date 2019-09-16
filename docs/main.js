@@ -200,7 +200,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"form\">\n  <select formControlName=\"plan\">\n    <option *ngFor=\"let plan of plans\" [ngValue]=\"plan.limit\">{{plan.name}}</option>\n  </select>\n<!--  <p>Selected Country: {{plan?.name}}</p>-->\n  <button type=\"button\" [disabled]=\"!form.valid\" (click)=\"submit()\" >Submit</button>\n</form>\n"
+module.exports = "<div class=\"jumbotron text-center\" style=\"margin-bottom:0\">\n  <h1>Here Task</h1>\n  <p>Page 1 - Selecting a Plan</p>\n</div>\n<div class=\"container mt-5\">\n  <form [formGroup]=\"form\">\n    <div class=\"form-group row\">\n      <div class=\"offset-3 col-md-4\">\n        <select formControlName=\"plan\" class=\"form-control\">\n          <option *ngFor=\"let plan of plans\" [ngValue]=\"plan.limit\">{{plan.name}}</option>\n        </select>\n      </div>\n      <div class=\"col-md-2\">\n        <!--  <p>Selected Country: {{plan?.name}}</p>-->\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"!form.valid\" (click)=\"submit()\">Submit</button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -275,7 +275,7 @@ var Page1Component = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".form-control.is-invalid, .was-validated .form-control:invalid {\n  background-image: none !important;\n}\n\n.icon-button {\n  background: transparent;\n  color: cyan;\n  border: none;\n}\n\n.icon-button:active .icon-button:hover .icon-button:focus {\n  background: transparent !important;\n  color: darkcyan;\n  border: none !important;\n  box-shadow: none !important;\n}\n\n.btn:hover, .btn:focus {\n  color: darkcyan;\n  box-shadow: none;\n}\n"
 
 /***/ }),
 
@@ -286,7 +286,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"ipForm\">\n  <div formArrayName=\"address\">\n    <div *ngFor=\"let item of ipArray.controls; let ipIndex=index\" [formGroupName]=\"ipIndex\">\n      <label>\n        IP Address: <input formControlName=\"ip\" />\n      </label>\n      <button type=\"button\" (click)=\"deleteIP(ipIndex)\">Delete</button><br>\n      <span *ngIf=\"getValidity(ipIndex)\">Invalid IP</span>\n    </div>\n    <button type=\"button\" (click)=\"addIP()\" [disabled]=\"ipArray.length == plan\">Add</button>\n  </div>\n  <button type=\"button\" [disabled]=\"!ipForm.valid\" (click)=\"submit()\" >Submit</button>\n</form>\n{{ this.ipForm.value | json }}\n"
+module.exports = "<div class=\"jumbotron text-center\" style=\"margin-bottom:0\">\n  <h1>Here Task</h1>\n  <p>Page 2 - Adding IP Address (Plan = {{plan}} IP Plan)</p>\n</div>\n<div class=\"container mt-5\">\n  <form [formGroup]=\"ipForm\">\n    <div formArrayName=\"address\" class=\"row\">\n      <div class=\"col-md-5\">\n        <div class=\"form-group row\" *ngFor=\"let item of ipArray.controls; let ipIndex=index\" [formGroupName]=\"ipIndex\">\n          <div class=\"col-md-10\">\n            <input [ngClass]=\"{ 'is-invalid' : getValidity(ipIndex) }\" class=\"form-control\" type=\"text\" placeholder=\"IP Address (Ex. - 1.1.1.1)\" formControlName=\"ip\"/>\n          </div>\n          <div class=\"col-md-2\">\n            <button type=\"button\" class=\"btn icon-button\" (click)=\"deleteIP(ipIndex)\">\n              <i class=\"fa fa-minus\"></i>\n            </button>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-1\">\n        <button style=\"position: absolute;bottom: 1rem;right: 0;\" class=\"btn icon-button\" (click)=\"addIP()\" [disabled]=\"ipArray.length == plan\"><i\n          class=\"fa fa-plus\"></i></button>\n      </div>\n    </div>\n    <button class=\"btn btn-primary\" type=\"button\" [disabled]=\"!ipForm.valid\" (click)=\"submit()\">Submit</button>\n  </form>\n    {{ this.ipForm.value | json }}\n</div>\n"
 
 /***/ }),
 
