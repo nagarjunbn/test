@@ -1,14 +1,28 @@
-<form [formGroup]="ipForm">
-  <div formArrayName="address">
-    <div *ngFor="let item of ipArray.controls; let ipIndex=index" [formGroupName]="ipIndex">
-      <label>
-        IP Address: <input formControlName="ip" />
-      </label>
-      <button type="button" (click)="deleteIP(ipIndex)">Delete</button><br>
-      <span *ngIf="getValidity(ipIndex)">Invalid IP</span>
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>Here Task</h1>
+  <p>Page 2 - Adding IP Address (Plan = {{plan}} IP Plan)</p>
+</div>
+<div class="container mt-5">
+  <form [formGroup]="ipForm">
+    <div formArrayName="address" class="row">
+      <div class="col-md-5">
+        <div class="form-group row" *ngFor="let item of ipArray.controls; let ipIndex=index" [formGroupName]="ipIndex">
+          <div class="col-md-10">
+            <input [ngClass]="{ 'is-invalid' : getValidity(ipIndex) }" class="form-control" type="text" placeholder="IP Address (Ex. - 1.1.1.1)" formControlName="ip"/>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn icon-button" (click)="deleteIP(ipIndex)">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <button style="position: absolute;bottom: 1rem;right: 0;" class="btn icon-button" (click)="addIP()" [disabled]="ipArray.length == plan"><i
+          class="fa fa-plus"></i></button>
+      </div>
     </div>
-    <button type="button" (click)="addIP()" [disabled]="ipArray.length == plan">Add</button>
-  </div>
-  <button type="button" [disabled]="!ipForm.valid" (click)="submit()" >Submit</button>
-</form>
-{{ this.ipForm.value | json }}
+    <button class="btn btn-primary" type="button" [disabled]="!ipForm.valid" (click)="submit()">Submit</button>
+  </form>
+    {{ this.ipForm.value | json }}
+</div>

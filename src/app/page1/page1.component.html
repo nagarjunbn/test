@@ -1,7 +1,19 @@
-<form [formGroup]="form">
-  <select formControlName="plan">
-    <option *ngFor="let plan of plans" [ngValue]="plan.limit">{{plan.name}}</option>
-  </select>
-<!--  <p>Selected Country: {{plan?.name}}</p>-->
-  <button type="button" [disabled]="!form.valid" (click)="submit()" >Submit</button>
-</form>
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>Here Task</h1>
+  <p>Page 1 - Selecting a Plan</p>
+</div>
+<div class="container mt-5">
+  <form [formGroup]="form">
+    <div class="form-group row">
+      <div class="offset-3 col-md-4">
+        <select formControlName="plan" class="form-control">
+          <option *ngFor="let plan of plans" [ngValue]="plan.limit">{{plan.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <!--  <p>Selected Country: {{plan?.name}}</p>-->
+        <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="submit()">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

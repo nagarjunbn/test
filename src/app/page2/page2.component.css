@@ -1,0 +1,21 @@
+.form-control.is-invalid, .was-validated .form-control:invalid {
+  background-image: none !important;
+}
+
+.icon-button {
+  background: transparent;
+  color: cyan;
+  border: none;
+}
+
+.icon-button:active .icon-button:hover .icon-button:focus {
+  background: transparent !important;
+  color: darkcyan;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.btn:hover, .btn:focus {
+  color: darkcyan;
+  box-shadow: none;
+}
